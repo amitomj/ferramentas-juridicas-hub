@@ -20,31 +20,34 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="h-screen flex flex-col bg-[#0f172a] text-slate-200 transition-colors duration-500 overflow-hidden">
-      <Header 
-        onGoHome={handleGoHome} 
-        currentAppTitle={activeApp?.title}
-      />
-      
-      <main className="flex-1 overflow-y-auto relative">
-        {viewState === 'dashboard' ? (
-          <Dashboard onAppSelect={handleAppSelect} />
-        ) : activeApp ? (
-          <AppViewer app={activeApp} />
-        ) : null}
-      </main>
+    <div className="h-screen bg-[#020617] flex justify-center overflow-hidden">
+      {/* Container principal limitado a 70% da largura em desktops (xl+) e 100% em menores */}
+      <div className="w-full xl:w-[70%] h-full flex flex-col bg-[#0f172a] text-slate-200 transition-all duration-500 overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.5)] border-x border-slate-800/50">
+        <Header 
+          onGoHome={handleGoHome} 
+          currentAppTitle={activeApp?.title}
+        />
+        
+        <main className="flex-1 overflow-y-auto relative custom-scrollbar">
+          {viewState === 'dashboard' ? (
+            <Dashboard onAppSelect={handleAppSelect} />
+          ) : activeApp ? (
+            <AppViewer app={activeApp} />
+          ) : null}
+        </main>
 
-      {viewState === 'viewer' && (
-        <button
-          onClick={handleGoHome}
-          className="md:hidden fixed bottom-6 right-6 w-14 h-14 bg-blue-600 text-white rounded-full shadow-[0_10px_30px_rgba(37,99,235,0.5)] flex items-center justify-center z-50 hover:bg-blue-500 active:scale-90 transition-all border border-blue-400/20"
-          aria-label="Voltar ao início"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-          </svg>
-        </button>
-      )}
+        {viewState === 'viewer' && (
+          <button
+            onClick={handleGoHome}
+            className="md:hidden fixed bottom-6 right-6 w-14 h-14 bg-blue-600 text-white rounded-full shadow-[0_10px_30px_rgba(37,99,235,0.5)] flex items-center justify-center z-50 hover:bg-blue-500 active:scale-90 transition-all border border-blue-400/20"
+            aria-label="Voltar ao início"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+          </button>
+        )}
+      </div>
     </div>
   );
 };
